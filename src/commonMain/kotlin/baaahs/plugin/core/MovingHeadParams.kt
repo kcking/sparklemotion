@@ -17,7 +17,10 @@ data class MovingHeadParams(
     /** In radians. */
     val tilt: Float,
     val colorWheel: Float,
-    val dimmer: Float
+    val dimmer: Float,
+    /** on if >= 0.5, otherwise off */
+    val prism: Float,
+    val prismRotation: Float,
 ) {
     fun send(buffer: MovingHead.Buffer) {
         buffer.pan = pan
@@ -25,6 +28,8 @@ data class MovingHeadParams(
         // TODO: Not all moving heads have a color wheel, some use RGB.
         buffer.colorWheelPosition = colorWheel
         buffer.dimmer = dimmer
+        buffer.prism = prism
+        buffer.prismRotation = prismRotation
     }
 
     companion object {
@@ -34,12 +39,14 @@ data class MovingHeadParams(
             "tilt" to GlslType.Float,
             "colorWheel" to GlslType.Float,
             "dimmer" to GlslType.Float,
-            defaultInitializer = GlslExpr("MovingHeadParams(0., 0., 0., 1.)")
+            "prism" to GlslType.Float,
+            "prismRotation" to GlslType.Float,
+            defaultInitializer = GlslExpr("MovingHeadParams(0., 0., 0., 1., 0., 0.)")
         )
 
         val contentType = ContentType(
             "moving-head-params", "Moving Head Params",
-            struct, outputRepresentation = GlslType.Vec4
+            struct, outputRepresentation = GlslType.SixteenFloats
         )
 
         val resultType = object : FloatsResultType<ResultBuffer>(4, GL_RGBA) {
@@ -56,7 +63,9 @@ data class MovingHeadParams(
                 pan = floatBuffer[offset],
                 tilt = floatBuffer[offset + 1],
                 colorWheel = floatBuffer[offset + 2],
-                dimmer = floatBuffer[offset + 3]
+                dimmer = floatBuffer[offset + 3],
+                prism = floatBuffer[offset + 4],
+                prismRotation = floatBuffer[offset + 5]
             )
         }
 

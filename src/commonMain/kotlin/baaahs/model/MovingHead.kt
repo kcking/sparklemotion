@@ -46,6 +46,9 @@ interface MovingHeadAdapter {
 
     val visualizerInfo: VisualizerInfo
 
+    val prismChannel: Dmx.Channel
+    val prismRotationChannel: Dmx.Channel
+
     fun newBuffer(dmxBuffer: Dmx.Buffer): MovingHead.Buffer
 
     fun newBuffer(universe: Dmx.Universe, baseDmxChannel: Int): MovingHead.Buffer {
@@ -112,6 +115,14 @@ class MovingHead(
         override var shutter: Int
             get() = dmxBuffer[adapter.shutterChannel].toInt()
             set(value) { dmxBuffer[adapter.shutterChannel] = value.toByte() }
+
+        override var prism: Float
+            get() = getFloat(adapter.prismChannel)
+            set(value) = setFloat(adapter.prismChannel, (0f..1f).clamp(value))
+
+        override var prismRotation: Float
+            get() = getFloat(adapter.prismRotationChannel)
+            set(value) = setFloat(adapter.prismRotationChannel, (0f..1f).clamp(value))
     }
 
     interface Buffer {
@@ -126,6 +137,8 @@ class MovingHead(
         /** Rotation of color wheel in `(0..1]`. */
         var colorWheelPosition: Float
         var shutter: Int
+        var prism: Float
+        var prismRotation: Float
 
         fun List<Shenzarpy.WheelColor>.closestColorFor(color: Color): Byte {
             var bestMatch = Shenzarpy.WheelColor.WHITE
