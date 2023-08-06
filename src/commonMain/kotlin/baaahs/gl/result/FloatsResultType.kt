@@ -26,6 +26,8 @@ abstract class FloatsResultType<T : FloatsResultType.Buffer>(
                         2 -> GlContext.GL_RG32F // Doesn't work in WebGL.
                         3 -> GlContext.GL_RGB32F // Doesn't work in WebGL.
                         4 -> GlContext.GL_RGBA32F
+                        6 -> GlContext.GL_RGBA32F
+                        8 -> GlContext.GL_RGBA32F
                         else -> error("huh?")
                     }
                 }
@@ -35,6 +37,8 @@ abstract class FloatsResultType<T : FloatsResultType.Buffer>(
                         2 -> GlContext.GL_RG16F // Doesn't work in WebGL.
                         3 -> GlContext.GL_RGB16F // Doesn't work in WebGL.
                         4 -> GlContext.GL_RGBA16F
+                        6 -> GlContext.GL_RGBA32F
+                        8 -> GlContext.GL_RGBA32F
                         else -> error("huh?")
                     }
                 }

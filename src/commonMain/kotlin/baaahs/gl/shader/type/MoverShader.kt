@@ -19,6 +19,7 @@ object MoverShader : ShaderType {
 
     /**language=glsl*/
     override val template: String = """
+
         struct FixtureInfo {
             vec3 position;
             vec3 rotation;
@@ -32,6 +33,8 @@ object MoverShader : ShaderType {
             float dimmer;
             float prism;
             float prismRotation;
+            float unusedOne;
+            float ununsedTwo;
         };
         
         uniform FixtureInfo fixtureInfo;
@@ -44,6 +47,8 @@ object MoverShader : ShaderType {
             params.dimmer = 1.;
             params.prism = 0.;
             params.prismRotation = 0.;
+            params.unusedOne = 0.;
+            params.unusedTwo = 0.;
         }
     """.trimIndent()
 

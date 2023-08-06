@@ -41,7 +41,9 @@ data class MovingHeadParams(
             "dimmer" to GlslType.Float,
             "prism" to GlslType.Float,
             "prismRotation" to GlslType.Float,
-            defaultInitializer = GlslExpr("MovingHeadParams(0., 0., 0., 1., 0., 0.)")
+            "unusedOne" to GlslType.Float,
+            "unusedTwo" to GlslType.Float,
+            defaultInitializer = GlslExpr("MovingHeadParams(0., 0., 0., 1., 0., 0., 0., 0.)")
         )
 
         val contentType = ContentType(
@@ -49,7 +51,7 @@ data class MovingHeadParams(
             struct, outputRepresentation = GlslType.SixteenFloats
         )
 
-        val resultType = object : FloatsResultType<ResultBuffer>(4, GL_RGBA) {
+        val resultType = object : FloatsResultType<ResultBuffer>(8, GL_RGBA) {
             override fun createResultBuffer(gl: GlContext, index: Int): ResultBuffer =
                 ResultBuffer(gl, index, this)
         }

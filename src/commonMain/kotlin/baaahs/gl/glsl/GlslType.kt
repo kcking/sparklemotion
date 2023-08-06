@@ -136,7 +136,7 @@ sealed class GlslType constructor(
     object Sampler2D : GlslType("sampler2D")
     object Void : GlslType("void")
 
-    object SixteenFloats: GlslType("float[6]", GlslExpr("{0.,0.,0.,0.,0.,0.}"))
+    object SixteenFloats: GlslType("float[8]", GlslExpr("{0.,0.,0.,0.,0.,0.,0.,0.}"))
 
     open fun matches(otherType: GlslType): Boolean =
         this == otherType
